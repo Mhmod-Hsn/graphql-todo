@@ -1,9 +1,13 @@
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const schema = require('./modules');
+const cors = require("cors");
+const { ApolloServer } = require("apollo-server-express");
+const schema = require("./modules");
 const loggingPlugin = require("./plugins/logging");
 
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
 
 async function startServer() {
 	const server = new ApolloServer({
