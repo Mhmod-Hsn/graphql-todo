@@ -1,13 +1,17 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const schema = require('./modules');
+const loggingPlugin = require("./plugins/logging");
 
 const app = express();
 
 async function startServer() {
-  const server = new ApolloServer({ schema });
-  await server.start();
-  server.applyMiddleware({ app });
+	const server = new ApolloServer({
+		schema,
+		plugins: [loggingPlugin],
+	});
+	await server.start();
+	server.applyMiddleware({ app });
 }
 startServer();
 
